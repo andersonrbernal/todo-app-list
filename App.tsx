@@ -1,12 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, Keyboard } from 'react-native';
+import TodoProvider from './src/context/todoContext';
+import { Header, AddTodo, TodoList } from './src/components'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TodoProvider>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Header />
+          <View style={styles.content}>
+            <AddTodo />
+            <View style={styles.list}>
+              <TodoList />
+            </View>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </TodoProvider>
   );
 }
 
@@ -14,7 +24,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  content: {
+    padding: 30,
+    flex: 1
+  },
+  list: {
+    backgroundColor: 'white',
+    flex: 1
   },
 });
